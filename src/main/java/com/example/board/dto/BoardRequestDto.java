@@ -1,8 +1,10 @@
 package com.example.board.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class BoardRequestDto { // 데이터 요청
     private String title;
     private String username;

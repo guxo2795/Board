@@ -2,10 +2,12 @@ package com.example.board.dto;
 
 import com.example.board.entity.Board;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
 public class BoardResponseDto { // 데이터 반환
     private Long id;
     private String title;

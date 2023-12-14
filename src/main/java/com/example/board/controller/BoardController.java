@@ -4,6 +4,7 @@ import com.example.board.dto.BoardRequestDto;
 import com.example.board.dto.BoardResponseDto;
 import com.example.board.entity.Board;
 import com.example.board.service.BoardService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -12,11 +13,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
-    public BoardController(BoardService boardService) {
-        this.boardService = boardService;
-    }
 
     @PostMapping("/boards")
     public BoardResponseDto createBoard(@RequestBody BoardRequestDto requestDto) {

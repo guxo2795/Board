@@ -22,15 +22,22 @@ repositories {
 }
 
 dependencies {
+
     // JPA 설정
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
     //MySQL
     implementation 'mysql:mysql-connector-java:8.0.28'
 
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // WEB
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // LOMBOK
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
