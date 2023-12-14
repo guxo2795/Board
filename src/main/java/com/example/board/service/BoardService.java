@@ -3,6 +3,8 @@ package com.example.board.service;
 import com.example.board.dto.BoardRequestDto;
 import com.example.board.dto.BoardResponseDto;
 import com.example.board.entity.Board;
+import com.example.board.exception.AuthorizeException;
+import com.example.board.exception.PostNotFoundException;
 import com.example.board.repository.BoardRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -44,28 +46,28 @@ public class BoardService {
     public BoardResponseDto updateBoard(Long id, String password, BoardRequestDto requestDto) {
         Board board = findBoard(id);
 
-        if (!board.getPassword().equals(password)) {
-            throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
-        }
+        verifyPassword(board, password);
 
         board.update(requestDto);
         return new BoardResponseDto(board);
     }
 
-    public Long deleteBoard(Long id, String password) {
+    public void deleteBoard(Long id, String password) {
         Board board = findBoard(id);
 
-        if (!board.getPassword().equals(password)) {
-            throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
-        }
+        verifyPassword(board, password);
 
         boardRepository.delete(board);
-        return id;
     }
 
     private Board findBoard(Long id) {
         return boardRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("선택한 게시글은 존재하지 않습니다. id=" +id)
-        );
+                new PostNotFoundException("해당 게시글을 찾을 수 없습니다."));
+    }
+
+    private static void verifyPassword(Board board, String password) {
+        if (!board.getPassword().equals(password)) {
+            throw new AuthorizeException("비밀번호가 일치하지 않습니다.");
+        }
     }
 }
